@@ -70,6 +70,7 @@ context_vacancy = "working with projects in the context of Senior Software Engin
 folderName = f"{company}-{job_title}"
 os.makedirs(folderName, exist_ok=True)
 
+# context of the vacancy
 context = """
 XPTO.co aspires to be the global cloud compliance platform. Our ambitious mission is to build out our global, multi-cloud SaaS solution to scale to support all global transactions while providing highest levels of resiliency and performance. The AvaTax Engineering team at XPTO.co is responsible for designing, building and supporting our flagship determinations platform. 
 
@@ -104,7 +105,7 @@ It is a position with international interaction teams only resumes sent in Engli
 """
 #------------------------------------------------
 """
-    NLPK - processisng workds 
+    Processisng workds 
      - analysis of the most used words in the job description
 """
 tokens = word_tokenize(context)
@@ -118,9 +119,8 @@ freq_dist = FreqDist(tokens)
 keywords = freq_dist.most_common(10)
 #------------------------------------------------
 """
-    sessions
+    Summary
 """
-# summary
 print("creating sumary")
 response = ollama.chat(model='llama3', messages=[
     {
@@ -136,7 +136,7 @@ response = ollama.chat(model='llama3', messages=[
             Keywords: {keywords}
 
             Here's about myself in my own words: 
-            [HERE GOES YOUR EXPERIENCE] A passion for coding with Python since starting mechanical engineering fueled my studies, leading to early graduation. 
+            [HERE GOES YOUR EXPERIENCE] Ex.:A passion for coding with Python since starting mechanical engineering fueled my studies, leading to early graduation. 
             Motivated by the potential of VR in industrial training, I leveraged my master's research on industrial robotics software 
             to create a VR tool, empowering operators. I'm a passionate sports enthusiast and a driven professional, and I bring the same 
             competitive spirit and commitment to excellence to my work. Just like in sports, I'm always striving to improve my skills, expand 
@@ -164,7 +164,9 @@ pathSummary = os.path.join(folderName, "summary.tex")
 with open(pathSummary, 'w') as arquivo:
     arquivo.write(lista_filtrada[0])
 
-
+"""
+    Experiences
+"""
 #experience_one
 print("creating experience_one experience ...")
 whatIdid = """
@@ -217,6 +219,9 @@ shutil.copy(rootPath, pathTemplate)
 print("!!! curriculum ready \o/  !!!")
 
 #--------------------------------------------------
+"""
+    Cover Letter
+"""
 print("----Init Cover Letter")
 print("----Creating couver letter base")
 rootPath = os.path.join(os.getcwd(), "coverLetter.txt")
@@ -248,7 +253,12 @@ response = ollama.chat(model='llama3', messages=[
         'content': f"""
             I am writing a cover letter.
             I need to write a paragraph to highlight my experience.
-            Here is a paragraph template: In my previous experience at company xxx, I had the opportunity to lead several software development projects, where I applied agile methodologies and test-driven development (TDD) techniques to ensure the delivery of high-quality products. My experience includes working with a variety of programming languages, such as Java, Python, and C++, and with frameworks like React and Angular. Additionally, my ability to solve complex problems and my skill in working effectively in a team were fundamental to the success of the projects I led.
+            Here is a paragraph template: In my previous experience at company xxx, I had the opportunity to 
+            lead several software development projects, where I applied agile methodologies and test-driven 
+            development (TDD) techniques to ensure the delivery of high-quality products. My experience 
+            includes working with a variety of programming languages, such as Java, Python, and C++, and 
+            with frameworks like React and Angular. Additionally, my ability to solve complex problems and 
+            my skill in working effectively in a team were fundamental to the success of the projects I led.
             This is my experience:(
                 Education:
                 Pos-Graduation in Artificial Intelligence and Machining Learning
